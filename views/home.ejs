@@ -11,6 +11,7 @@
     </style>
 </head>
 <body>
+    
      <h1 class="text-center">Welcome to home page</h1><br>
      <div class="row col-md-12 m-auto ">
         <div class="d-flex col-md-4 bg-dark text-white p-2">
@@ -29,18 +30,20 @@
    
                 <h1 class="text-warning text-center">Add New product</h1>
                 <hr class="bg-white">
-               <form action="">
+               <form action="/addProduct" method="POST">
                    <div class="form-group">
                        <label for="product_name">Product name:</label>
-                       <input type="email" class="form-control" id="product_name" name="product_name">
+                       <input type="text" class="form-control" id="product_name" name="product_name">
                    </div>
                    <div class="form-group">
                        <label for="product_price">Product price:</label>
-                       <input type="email" class="form-control" id="product_price" name="product_price" >
+                       <input type="text" class="form-control" id="product_price" name="product_price" >
                    </div>
-                   <select class="form-select form-select-lg p-2 col-md-12" name="category_name">
+                   <select class="form-select form-select-lg p-2 col-md-12" name="category_id">
                        <option selected>Select a category</option>
-                       <option value=""></option>
+                       <% for (var i=0; i<category.length; i++) {%>
+                          <option value="<%= category[i].category_id %>"><%= category[i].category_name %></option>
+                       <% } %>  
                    </select>
                    <br><br>
                    <button type="submit" class="btn btn-primary btn-block">Add new product</button>
@@ -48,8 +51,32 @@
             </div>      
         </div>
    
-        <div class="col-md-7 mt-4">
-            <table class="table">
+        <div class="col-md-8 mt-4">
+            <table class="table mt-2" id="category_table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Category id</th>
+                    <th scope="col">category_name name</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    <% for (var i=0; i<category.length; i++) {%>
+                        <tr>
+                        <td><%= category[i].category_id %></td>
+                        <td><%= category[i].category_name %></td>
+                        <td>
+                            <button class="btn btn-success" ><a href="update/<%= category[i].category_id %>">Update</a></button>
+                            <button class="btn btn-danger"><a href="delete/<%= category[i].category_id %>">Delete</a></button>
+                        </td>
+                        </tr>
+                     <% } %>  
+                   
+                  </tr>
+                </tbody>
+              </table>
+            <table class="table mt-2">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">Product id</th>
@@ -60,16 +87,18 @@
                   </tr>
                 </thead>
                 <tbody>
+                    <% for (var i=0; i<product.length; i++) {%>
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><%= product[i].product_id %></td>
+                    <td><%= product[i].product_name %></td>
+                    <td><%= product[i].product_price %></td>
+                    <td><%= product[i].category_name %></td>
                     <td>
                         <button class="btn btn-success">Edit</button>
                         <button class="btn btn-danger">Delete</button>
                     </td>
                   </tr>
+                  <% } %>
                 </tbody>
               </table>
        </div>

@@ -1,0 +1,14 @@
+<% for (var i=0; i<data.length; i++) {%>
+<form action="/update" method="POST">
+    <div class="form-group">
+        <label for="category_name">Category name:</label>
+        <input type="text" class="form-control" id="category_name" name="category_name" value="<%= data[i].category_name %>">
+    </div>
+    <div class="form-group">
+        
+        <input type="hidden" class="form-control" id="category_name" name="category_id" value="<%= data[i].category_id %>">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Add new category</button>
+ </form>
+
+ <% } %>
