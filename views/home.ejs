@@ -12,96 +12,93 @@
 </head>
 <body>
     
-     <h1 class="text-center">Welcome to home page</h1><br>
-     <div class="row col-md-12 m-auto ">
-        <div class="d-flex col-md-4 bg-dark text-white p-2">
-            <div class="col-md-12">
+    <h1 class="text-center">Welcome to home page</h1><br>
+    <div class="row col-md-12 m-auto mt-2 ">
+        <div class="col-md-4 bg-dark text-white p-2">
                 <h1 class="text-warning text-center">Add New Category</h1>
                 <hr class="bg-white">
                <form action="/" method="POST">
                    <div class="form-group">
                        <label for="category_name">Category name:</label>
-                       <input type="text" class="form-control" id="category_name" name="category_name">
+                       <input type="text" class="form-control" id="category_name" name="category_name" required>
                    </div>
-                   <button type="submit" class="btn btn-primary btn-block">Add new category</button>
+                   <button type="submit" class="btn btn-primary btn-block" onclick="validation()">Add new category</button>
                 </form>
-   
-                <br><br>
-   
+        </div> 
+        <div class="col-md-4 mt-2">
+            <div id="scrollable_div">
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">category_name name</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i=0; i<category.length; i++) {%>
+                            <tr>
+                            <td><%= category[i].category_name %></td>
+                            <td>
+                                <button class="btn btn-success mt-1" ><a href="update/<%= category[i].category_id %>">Update</a></button>
+                                <button class="btn btn-danger mt-1"><a href="delete/<%= category[i].category_id %>">Delete</a></button>
+                            </td>
+                            </tr>
+                         <% } %>  
+                    </tbody>
+                </table>
+            </div>
+       </div>
+    </div>
+
+     <div class="row col-md-12 m-auto mt-2">
+         <div class="col-md-4 bg-dark text-white p-2 mt-3">
                 <h1 class="text-warning text-center">Add New product</h1>
                 <hr class="bg-white">
-               <form action="/addProduct" method="POST">
-                   <div class="form-group">
-                       <label for="product_name">Product name:</label>
-                       <input type="text" class="form-control" id="product_name" name="product_name">
-                   </div>
-                   <div class="form-group">
-                       <label for="product_price">Product price:</label>
-                       <input type="text" class="form-control" id="product_price" name="product_price" >
-                   </div>
-                   <select class="form-select form-select-lg p-2 col-md-12" name="category_id">
-                       <option selected>Select a category</option>
-                       <% for (var i=0; i<category.length; i++) {%>
-                          <option value="<%= category[i].category_id %>"><%= category[i].category_name %></option>
-                       <% } %>  
-                   </select>
-                   <br><br>
-                   <button type="submit" class="btn btn-primary btn-block">Add new product</button>
+                <form action="/addProduct" method="POST">
+                    <div class="form-group">
+                        <label for="product_name">Product name:</label>
+                        <input type="text" class="form-control" id="product_name" name="product_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_price">Product price:</label>
+                        <input type="text" class="form-control" id="product_price" name="product_price" required>
+                    </div>
+                    <select class="form-select form-select-lg p-2 col-md-12" name="category_id" required>
+                        <option selected>Select a category</option>
+                        <% for (var i=0; i<category.length; i++) {%>
+                        <option value="<%= category[i].category_id %>"><%= category[i].category_name %></option>
+                        <% } %>  
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-block mt-2">Add new product</button>
                 </form>
-            </div>      
-        </div>
-   
-        <div class="col-md-8 mt-4">
-            <table class="table mt-2" id="category_table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">Category id</th>
-                    <th scope="col">category_name name</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                    <% for (var i=0; i<category.length; i++) {%>
-                        <tr>
-                        <td><%= category[i].category_id %></td>
-                        <td><%= category[i].category_name %></td>
+         </div>
+         <div class="col-md-8 mt-7 mt-2">
+            <div id="scrollable_div">
+                <table class="table mt-2">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Product price</th>
+                        <th scope="col">Product category</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i=0; i<product.length; i++) {%>
+                      <tr>
+                        <td><%= product[i].product_name %></td>
+                        <td><%= product[i].product_price %></td>
+                        <td><%= product[i].category_name %></td>
                         <td>
-                            <button class="btn btn-success" ><a href="update/<%= category[i].category_id %>">Update</a></button>
-                            <button class="btn btn-danger"><a href="delete/<%= category[i].category_id %>">Delete</a></button>
+                            <button class="btn btn-success mt-1"><a href="updateProduct/<%= product[i].product_id %>">Update</a></button>
+                            <button class="btn btn-danger mt-1"><a href="deleteProduct/<%= product[i].product_id %>">Delete</button>
                         </td>
-                        </tr>
-                     <% } %>  
-                   
-                  </tr>
-                </tbody>
-              </table>
-            <table class="table mt-2">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">Product id</th>
-                    <th scope="col">Product name</th>
-                    <th scope="col">Product price</th>
-                    <th scope="col">Product category</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <% for (var i=0; i<product.length; i++) {%>
-                  <tr>
-                    <td><%= product[i].product_id %></td>
-                    <td><%= product[i].product_name %></td>
-                    <td><%= product[i].product_price %></td>
-                    <td><%= product[i].category_name %></td>
-                    <td>
-                        <button class="btn btn-success">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
-                    </td>
-                  </tr>
-                  <% } %>
-                </tbody>
-              </table>
-       </div>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+            </div>
+         </div>
      </div>
 </body>
 </html>

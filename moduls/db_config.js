@@ -1,6 +1,5 @@
 const { json } = require('body-parser');
 const mysql = require ('mysql');
-// require('../.env/.env');
 
 var connection = mysql.createConnection({
     //db properties

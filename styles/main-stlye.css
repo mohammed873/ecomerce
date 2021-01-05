@@ -1,9 +1,6 @@
 body{
     background-color: rgb(216, 233, 233);
 }
-#category_table{
-    min-height: 50px;
-}
 a{
     color: white;
     text-decoration: none;
@@ -11,4 +8,8 @@ a{
 a:hover{
     color: white;
     text-decoration: none;
+}
+#scrollable_div{
+    height: 350px;
+    overflow-y: scroll;
 }
